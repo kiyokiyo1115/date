@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <title>日付管理一覧</title>
+    <!-- ① -->
+    <link rel="stylesheet" href="/css/bootstrap.css" />
+    <script src="/js/jquery.js"></script>
+    <script src="/js/bootstrap.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>計算の基準となる日付を入力してください</h1>
+      	<form>
+      		<input type="date" name="referencedate">
+      		<p><input type="submit" value="計算する"></p>
+      	</form>
+      <h1>日付管理一覧</h1>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>日付ID</th>
+            <th>日付名</th>
+            <th>加減値（年）</th>
+            <th>加減値（月）</th>
+            <th>加減値（日）</th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- ② -->
+          <tr th:each="date:${dates}" th:object="${date}">
+            <!-- ③ -->
+            <td th:text="*{id}"></td>
+            <td th:text="*{name}"></td>
+            <td th:text="*{year}"/>
+            <td th:text="*{month}"></td>
+            <td th:text="*{day}"></td>
+            <!-- ④ -->
+            
+            <td>
+              <!-- ⑤ -->
+              <form th:action="@{/dates/{id}(id=*{id})}" th:method="post">
+              	<input type="hidden" name="_method" value="DELETE">
+                <input class="btn btn-default btn-xs" type="submit" value="削除" />
+              </form>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <a class="btn btn-default" href="dates/new">新規作成</a>
+    </div>
+  </body>
+</html>
