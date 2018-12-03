@@ -32,7 +32,7 @@ public class DateController {
     }
 
     @GetMapping("new")
-    public String newDate(Model model) {
+    public String newdate(Model model) {
         return "dates/new";
     }
 
@@ -53,7 +53,7 @@ public class DateController {
 
     @DeleteMapping("{id}")
     public String destroy(@PathVariable String id) {
-        dateService.delete(id);
+        dateService.deleteById(id);
         return "redirect:/dates";
     }
     

@@ -26,8 +26,8 @@ public class DateService {
         return dateRepository.save(date);
     }
 
-    public void delete(String id) {
-        dateRepository.findById(id);
+    public void deleteById(String id) {
+        dateRepository.deleteById(id);
     }
 
 	
