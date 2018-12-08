@@ -1,6 +1,7 @@
 package com.example.business.controller;
 
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.business.domain.Date;
+import com.example.business.domain.ResultDate;
 import com.example.business.service.DateService;
 
 @Controller
@@ -27,7 +29,11 @@ public class DateController {
     @GetMapping
     public String index(Model model) { 
         List<Date> dates = dateService.findAll();
-        model.addAttribute("dates", dates);
+        
+        LocalDate initialDate = LocalDate.now();
+        List<ResultDate> resultDates = dateService.createResultDate(dates, initialDate);
+        
+        model.addAttribute("dates", resultDates);
         return "dates/index"; 
     }
 
@@ -44,6 +50,14 @@ public class DateController {
         return "redirect:/dates"; // ⑦
     }
 
+    @PostMapping("calculate")
+    public String calculate(@ModelAttribute("baseDate") String baseDate, Model model){
+        List<ResultDate> resultDates = dateService.calculateResultDate(baseDate);
+        model.addAttribute("resultDates", resultDates);
+        return "dates/index";
+    }
+    
+    
     @PutMapping("{id}")
     public String update(@PathVariable String id, @ModelAttribute Date date) {
         date.setid(id);

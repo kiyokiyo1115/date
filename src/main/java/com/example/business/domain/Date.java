@@ -44,7 +44,7 @@ public class Date {
     public Integer getday() {
         return day;
     }
-    public void setDay(Integer day) {
+    public void setday(Integer day) {
         this.day = day;
     }
     
