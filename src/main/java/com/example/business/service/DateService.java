@@ -21,7 +21,7 @@ public class DateService {
     @Autowired
     private DateRepository dateRepository;
 
-    public List<Date> findAll() {
+    public List<Date> search() {
         return dateRepository.findAll();
     }
 
@@ -42,7 +42,7 @@ public class DateService {
         return resultDates;
     }
     public List<ResultDate> calculateResultDate(String inputDate){
-        List<Date> Dates = findAll();
+        List<Date> Dates = search();
 
         String[] dates = inputDate.split("/",0);
 
@@ -53,5 +53,5 @@ public class DateService {
 
         List<ResultDate> resultDates = Dates.stream().map(d -> new ResultDate(d, date)).collect(Collectors.toList());
 
-        return resultDates;}
+        return Dates.stream().map(d -> new ResultDate(d, date)).collect(Collectors.toList());}
     }  

@@ -5,8 +5,8 @@ import javax.persistence.Id;
 
 @Entity
 public class Date {
-	@Id
 	
+	@Id
 	public String id;
 	public String name;
 	public Integer year;

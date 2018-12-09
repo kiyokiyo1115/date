@@ -23,12 +23,13 @@ import com.example.business.service.DateService;
 @Controller
 @RequestMapping("/dates") 
 public class DateController {
+	
     @Autowired
     private DateService dateService;
 
     @GetMapping
     public String index(Model model) { 
-        List<Date> dates = dateService.findAll();
+        List<Date> dates = dateService.search();
         
         LocalDate initialDate = LocalDate.now();
         List<ResultDate> resultDates = dateService.createResultDate(dates, initialDate);
@@ -45,9 +46,9 @@ public class DateController {
   
 
     @PostMapping
-    public String create(@ModelAttribute Date date) { // ⑥
+    public String create(@ModelAttribute Date date) { 
         dateService.save(date);	
-        return "redirect:/dates"; // ⑦
+        return "redirect:/dates"; 
     }
 
     @PostMapping("calculate")
